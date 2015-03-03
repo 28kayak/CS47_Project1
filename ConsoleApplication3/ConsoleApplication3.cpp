@@ -19,12 +19,67 @@ int calc(int op1, int op2, int opcode)
 
 			cmp ebx, 0x01; check for ADD
 			jne sub_2;
+
 		mov eax, op1;
 		add eax, op2;
 		jmp done;
 
-	sub_2:
-	done :
+		sub_2:
+			cmp ebx, 0x02;
+			jne mul_3;
+			mov eax, op1;
+			sub eax, op2;
+			jmp done;
+
+		mul_3:
+			cmp ebx, 0x03;
+			jne div_4;
+
+			mov         eax, op1;
+			imul        eax, op2;
+			jmp done;
+
+		div_4:
+			cmp ebx, 0x04;
+			jne mod_5;
+			mov eax, op1;
+			cdq;
+			idiv op2;
+			jmp done;
+		mod_5:
+			cmp ebx, 0x05;
+			jne and_6;
+			mov eax, op1;
+			cdq;
+			idiv op2;
+			mov eax, edx;
+			jmp done;
+		and_6:
+			cmp ebx, 0x06;
+			jne or_7;
+			mov	eax, op1;
+			and eax, op2;
+			jmp done;
+		or_7:
+			cmp ebx, 0x07;
+			jne xor_8;
+			mov eax, op1;
+			or eax, op2;
+			jmp done;
+		xor_8:
+			cmp ebx, 0x08;
+			jne fac_9;
+			mov eax, op1;
+			xor eax, op2;
+			jmp done;
+				
+		fac_9:
+			/*      cmp ebx, 0x09;
+			jne done;
+			mov eax, op1;*/
+			//fac eax, op2;
+
+		done:
 	};
 }
 
